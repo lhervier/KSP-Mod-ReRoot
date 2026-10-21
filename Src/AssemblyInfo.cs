@@ -1,6 +1,6 @@
 using System.Reflection;
 
-[assembly: AssemblyTitle("ReRootMod")]
+[assembly: AssemblyTitle("KSPModReRoot")]
 [assembly: AssemblyDescription("Adds a 'Set as root' action to re-root a vessel in flight, via the part context menu")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]

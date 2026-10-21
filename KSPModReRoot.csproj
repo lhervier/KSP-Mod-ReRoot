@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
-    <AssemblyName>ReRootMod</AssemblyName>
-    <RootNamespace>com.github.lhervier.ksp.reroot</RootNamespace>
+    <AssemblyName>KSPModReRoot</AssemblyName>
+    <RootNamespace>com.github.lhervier.ksp.mod.reroot</RootNamespace>
     <OutputType>Library</OutputType>
     <OutputPath>Output\bin</OutputPath>
     <IntermediateOutputPath>Output\obj</IntermediateOutputPath>

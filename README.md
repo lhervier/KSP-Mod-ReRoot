@@ -1,4 +1,4 @@
-# KSP-ReRoot — Set as root, in flight
+# KSP-Mod-ReRoot — Set as root, in flight
 
 A Kerbal Space Program mod that adds a **"Set as root"** action to the part context menu **in flight**. Its main purpose is **EVA Construction**: a Kerbal can never grab or detach the *root* part of a vessel, so this mod lets you move the root onto another part — freeing the old one for editing.
 
@@ -54,7 +54,7 @@ The clickable button only appears on **valid root candidates** (the same parts t
 ## Installation
 
 1. Build (see below) or download a release.
-1. Copy the `ReRootMod` folder into your KSP `GameData/` folder.
+1. Copy the `KSPModReRoot` folder into your KSP `GameData/` folder.
 1. Make sure [`ModuleManager`](https://github.com/sarbian/ModuleManager) is also in `GameData/`.
 
 ---
@@ -109,12 +109,12 @@ Set the `KSPDIR` environment variable to your KSP install, then:
 - **Windows:** `build.bat` then `install.bat`
 - **Linux:** `./build.sh` then `./install.sh`
 
-`build` compiles `ReRootMod.dll`, bundles the ModuleManager patch and the
-localization files, and produces `Release/ReRootMod.zip`. `install` unpacks it into `$KSPDIR/GameData/ReRootMod`.
+`build` compiles `KSPModReRoot.dll`, bundles the ModuleManager patch and the
+localization files, and produces `Release/KSPModReRoot.zip`. `install` unpacks it into `$KSPDIR/GameData/KSPModReRoot`.
 
 ## Localization
 
-English (`en-us`) and French (`fr-fr`) are included, under `GameData/ReRootMod/Localization/`.
+English (`en-us`) and French (`fr-fr`) are included, under `GameData/KSPModReRoot/Localization/`.
 
 ## License
 

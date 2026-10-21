@@ -3,8 +3,8 @@ setlocal
 
 if "%KSPDIR%"=="" goto :no_kspdir
 
-if not exist "Release\ReRootMod.zip" (
-    echo ERROR: Release\ReRootMod.zip not found - run build.bat first
+if not exist "Release\KSPModReRoot.zip" (
+    echo ERROR: Release\KSPModReRoot.zip not found - run build.bat first
     exit /b 1
 )
 
@@ -12,7 +12,7 @@ echo =====================================
 echo Removing existing Mod folder
 echo =====================================
 
-if exist "%KSPDIR%\GameData\ReRootMod" rmdir /s /q "%KSPDIR%\GameData\ReRootMod"
+if exist "%KSPDIR%\GameData\KSPModReRoot" rmdir /s /q "%KSPDIR%\GameData\KSPModReRoot"
 if errorlevel 1 (
     echo ERROR: Failed to remove the Mod folder
     exit /b 1
@@ -23,7 +23,7 @@ echo =====================================
 echo Unzipping Mod
 echo =====================================
 
-powershell -NoProfile -ExecutionPolicy Bypass -Command "Expand-Archive -Path 'Release\ReRootMod.zip' -DestinationPath '%KSPDIR%\GameData\ReRootMod' -Force"
+powershell -NoProfile -ExecutionPolicy Bypass -Command "Expand-Archive -Path 'Release\KSPModReRoot.zip' -DestinationPath '%KSPDIR%\GameData\KSPModReRoot' -Force"
 if errorlevel 1 (
     echo ERROR: Failed to unzip the Mod
     exit /b 1

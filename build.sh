@@ -33,7 +33,7 @@ detect_ksp_data_dir() {
 }
 
 echo "==============================="
-echo "Building ReRootMod"
+echo "Building KSPModReRoot"
 echo "==============================="
 
 require_command dotnet
@@ -46,33 +46,33 @@ echo "Suppression du dossier Release"
 rm -rf Release
 
 echo "Création du dossier Release"
-mkdir -p Release/ReRootMod
+mkdir -p Release/KSPModReRoot
 
 echo "Restauration des packages NuGet"
-dotnet restore ReRootMod.csproj "${MSBUILD_PROPS[@]}"
+dotnet restore KSPModReRoot.csproj "${MSBUILD_PROPS[@]}"
 
 echo "Compilation de la DLL du mod (.NET Framework 4.7.2)"
-dotnet build ReRootMod.csproj "${MSBUILD_PROPS[@]}" --no-restore
+dotnet build KSPModReRoot.csproj "${MSBUILD_PROPS[@]}" --no-restore
 
 echo "Copie de la DLL du mod"
-cp -v Output/bin/ReRootMod.dll Release/ReRootMod/
+cp -v Output/bin/KSPModReRoot.dll Release/KSPModReRoot/
 
 echo "Copie du patch ModuleManager"
-cp -v GameData/ReRootMod/ReRootMod.cfg Release/ReRootMod/
+cp -v GameData/KSPModReRoot/KSPModReRoot.cfg Release/KSPModReRoot/
 
 echo "Copie de la localisation"
-mkdir -p Release/ReRootMod/Localization
-cp -v GameData/ReRootMod/Localization/*.cfg Release/ReRootMod/Localization/
+mkdir -p Release/KSPModReRoot/Localization
+cp -v GameData/KSPModReRoot/Localization/*.cfg Release/KSPModReRoot/Localization/
 
 echo "Création de l'archive"
 (
-    cd Release/ReRootMod
-    zip -qr ../ReRootMod.zip .
+    cd Release/KSPModReRoot
+    zip -qr ../KSPModReRoot.zip .
 )
 
 echo "Suppression du dossier intermédiaire"
-rm -rf Release/ReRootMod
+rm -rf Release/KSPModReRoot
 
 echo
-echo "Build terminé : Release/ReRootMod.zip"
+echo "Build terminé : Release/KSPModReRoot.zip"
 echo "Exécuté le : $(date)"

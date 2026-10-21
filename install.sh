@@ -25,10 +25,10 @@ check_kspdir() {
 require_command unzip
 check_kspdir
 
-ZIP_FILE="Release/ReRootMod.zip"
+ZIP_FILE="Release/KSPModReRoot.zip"
 [[ -f "$ZIP_FILE" ]] || die "archive introuvable : $ZIP_FILE (lancez ./build.sh d'abord)"
 
-MOD_DIR="$KSPDIR/GameData/ReRootMod"
+MOD_DIR="$KSPDIR/GameData/KSPModReRoot"
 
 echo "====================================="
 echo "Suppression de l'installation existante"

@@ -4,12 +4,12 @@ using System.IO;
 using KSP.Localization;
 using UnityEngine;
 
-namespace com.github.lhervier.ksp.reroot {
+namespace com.github.lhervier.ksp.mod.reroot {
 
     /// <summary>
     /// Adds a "Set as root" action to the part context menu (Part Action Window).
     ///
-    /// Injected on parts via ModuleManager (GameData/ReRootMod/ReRootMod.cfg).
+    /// Injected on parts via ModuleManager (GameData/KSPModReRoot/KSPModReRoot.cfg).
     /// Shown on parts of the active vessel AND of another loaded vessel within range (guiActiveUnfocused,
     /// UNFOCUSED_RANGE). KSP's PAW has no disabled-button state, so instead of a greyed button we show
     /// the button XOR a read-only status line: valid root candidates get the clickable button; parts
@@ -18,7 +18,7 @@ namespace com.github.lhervier.ksp.reroot {
     /// </summary>
     public class ReRootPartModule : PartModule {
 
-        private const string LOG_PREFIX = "[ReRootMod]";
+        private const string LOG_PREFIX = "[KSPModReRoot]";
 
         // Dedicated save file: NOT "persistent", so a scene-exit autosave to "persistent" can't
         // clobber our placement patch before the reload reads it back.
@@ -40,7 +40,7 @@ namespace com.github.lhervier.ksp.reroot {
         // unfocusedRange as the button so both behave consistently on other loaded vessels.
         [KSPField(guiActive = false, guiActiveUnfocused = false, unfocusedRange = UNFOCUSED_RANGE,
                   groupName = PAW_GROUP, groupDisplayName = PAW_GROUP_TITLE, groupStartCollapsed = true,
-                  guiName = "#LOC_ReRoot_statusLabel")]
+                  guiName = "#LOC_KSPModReRoot_statusLabel")]
         public string reRootStatus = "";
 
         // Cached PAW item handles + last computed state (to avoid re-formatting the status every frame).
@@ -51,7 +51,7 @@ namespace com.github.lhervier.ksp.reroot {
         // Shows on the active vessel and on another loaded vessel within UNFOCUSED_RANGE
         [KSPEvent(guiActive = false, guiActiveUncommand = true, guiActiveUnfocused = false, externalToEVAOnly = false, unfocusedRange = UNFOCUSED_RANGE,
                   groupName = PAW_GROUP, groupDisplayName = PAW_GROUP_TITLE, groupStartCollapsed = true,
-                  guiName = "#LOC_ReRoot_setAsRoot")]
+                  guiName = "#LOC_KSPModReRoot_setAsRoot")]
         public void SetAsRootEvent() {
             try {
                 if (part == null || part.vessel == null) {
@@ -60,7 +60,7 @@ namespace com.github.lhervier.ksp.reroot {
                 // Defensive: the button is only shown on valid, non-Kerbal candidates (UpdatePawItems),
                 // but guard anyway in case visibility lags a frame behind a tree change.
                 if (part.isKerbalEVA() || !IsRootCandidate(part)) {
-                    ScreenMessages.PostScreenMessage(Localizer.Format("#LOC_ReRoot_cannotSetAsRoot", part.partInfo?.title), 3f, ScreenMessageStyle.UPPER_CENTER);
+                    ScreenMessages.PostScreenMessage(Localizer.Format("#LOC_KSPModReRoot_cannotSetAsRoot", part.partInfo?.title), 3f, ScreenMessageStyle.UPPER_CENTER);
                     return;
                 }
 
@@ -70,11 +70,11 @@ namespace com.github.lhervier.ksp.reroot {
                     new Vector2(0.5f, 0.5f),
                     new MultiOptionDialog(
                         "reRootConfirm",
-                        Localizer.Format("#LOC_ReRoot_dialogMessage", part.partInfo?.title),
-                        Localizer.Format("#LOC_ReRoot_dialogTitle"),
+                        Localizer.Format("#LOC_KSPModReRoot_dialogMessage", part.partInfo?.title),
+                        Localizer.Format("#LOC_KSPModReRoot_dialogTitle"),
                         HighLogic.UISkin,
-                        new DialogGUIButton(Localizer.Format("#LOC_ReRoot_dialogConfirm"), () => DoReRoot(part), true),
-                        new DialogGUIButton(Localizer.Format("#LOC_ReRoot_dialogCancel"), () => { }, true)),
+                        new DialogGUIButton(Localizer.Format("#LOC_KSPModReRoot_dialogConfirm"), () => DoReRoot(part), true),
+                        new DialogGUIButton(Localizer.Format("#LOC_KSPModReRoot_dialogCancel"), () => { }, true)),
                     false,
                     HighLogic.UISkin);
             } catch (System.Exception ex) {
@@ -86,11 +86,11 @@ namespace com.github.lhervier.ksp.reroot {
             base.OnStart(state);
             setRootEvt = Events["SetAsRootEvent"];
             if (setRootEvt != null) {
-                setRootEvt.guiName = Localizer.Format("#LOC_ReRoot_setAsRoot");
+                setRootEvt.guiName = Localizer.Format("#LOC_KSPModReRoot_setAsRoot");
             }
             statusFld = Fields["reRootStatus"];
             if (statusFld != null) {
-                statusFld.guiName = Localizer.Format("#LOC_ReRoot_statusLabel");
+                statusFld.guiName = Localizer.Format("#LOC_KSPModReRoot_statusLabel");
             }
             UpdatePawItems();
         }
@@ -138,9 +138,9 @@ namespace com.github.lhervier.ksp.reroot {
             if (state != lastState) {
                 lastState = state;
                 if (state == 1) {
-                    reRootStatus = Localizer.Format("#LOC_ReRoot_statusIsRoot");
+                    reRootStatus = Localizer.Format("#LOC_KSPModReRoot_statusIsRoot");
                 } else if (state == 2) {
-                    reRootStatus = Localizer.Format("#LOC_ReRoot_statusInvalid");
+                    reRootStatus = Localizer.Format("#LOC_KSPModReRoot_statusInvalid");
                 }
             }
         }
@@ -159,7 +159,7 @@ namespace com.github.lhervier.ksp.reroot {
                 // The confirmation dialog stays up across a rate change, so re-check here: the user may
                 // have started warping between opening it and confirming.
                 if (!IsRealTime()) {
-                    ScreenMessages.PostScreenMessage(Localizer.Format("#LOC_ReRoot_abortedWarp"), 4f, ScreenMessageStyle.UPPER_CENTER);
+                    ScreenMessages.PostScreenMessage(Localizer.Format("#LOC_KSPModReRoot_abortedWarp"), 4f, ScreenMessageStyle.UPPER_CENTER);
                     return;
                 }
                 Vessel v = newRoot.vessel;
@@ -183,7 +183,7 @@ namespace com.github.lhervier.ksp.reroot {
                 CollectTopo(newRoot, ordered);
                 if (ordered.Count != v.parts.Count) {
                     Debug.LogError($"{LOG_PREFIX} Topo traversal reached {ordered.Count}/{v.parts.Count} parts — ABORT.");
-                    ScreenMessages.PostScreenMessage(Localizer.Format("#LOC_ReRoot_abortedOrphan"), 4f, ScreenMessageStyle.UPPER_CENTER);
+                    ScreenMessages.PostScreenMessage(Localizer.Format("#LOC_KSPModReRoot_abortedOrphan"), 4f, ScreenMessageStyle.UPPER_CENTER);
                     return;
                 }
                 v.parts.Clear();
@@ -221,7 +221,7 @@ namespace com.github.lhervier.ksp.reroot {
                 ConfigNode target = FindVesselNodeByPartUid(root?.GetNode("GAME")?.GetNode("FLIGHTSTATE"), rootUid);
                 if (target == null) {
                     Debug.LogError($"{LOG_PREFIX} Saved VESSEL with part uid={rootUid} not found — ABORT (no reload).");
-                    ScreenMessages.PostScreenMessage(Localizer.Format("#LOC_ReRoot_abortedNotFound"), 4f, ScreenMessageStyle.UPPER_CENTER);
+                    ScreenMessages.PostScreenMessage(Localizer.Format("#LOC_KSPModReRoot_abortedNotFound"), 4f, ScreenMessageStyle.UPPER_CENTER);
                     return;
                 }
                 target.SetValue("lat", lat.ToString("G17", CultureInfo.InvariantCulture), false);
@@ -240,7 +240,7 @@ namespace com.github.lhervier.ksp.reroot {
                 FlightDriver.StartAndFocusVessel(SAVE_NAME, focusIdx);
             } catch (System.Exception ex) {
                 Debug.LogError($"{LOG_PREFIX} DoReRoot failed: {ex.Message}\n{ex.StackTrace}");
-                ScreenMessages.PostScreenMessage(Localizer.Format("#LOC_ReRoot_failed"), 4f, ScreenMessageStyle.UPPER_CENTER);
+                ScreenMessages.PostScreenMessage(Localizer.Format("#LOC_KSPModReRoot_failed"), 4f, ScreenMessageStyle.UPPER_CENTER);
             }
         }
 

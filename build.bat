@@ -2,7 +2,7 @@
 setlocal
 
 echo ===============================
-echo Building ReRootMod
+echo Building KSPModReRoot
 echo ===============================
 
 if "%KSPDIR%"=="" goto :no_kspdir
@@ -21,50 +21,50 @@ if errorlevel 1 (
 )
 
 echo Creating Release folder
-mkdir Release\ReRootMod
+mkdir Release\KSPModReRoot
 if errorlevel 1 (
     echo ERROR: Failed to create the Mod folder
     exit /b 1
 )
 
 echo Building Mod DLL
-dotnet build ReRootMod.csproj -p:KSPDIR="%KSPDIR%" -p:KSP_DATA_DIR="%KSP_DATA_DIR%"
+dotnet build KSPModReRoot.csproj -p:KSPDIR="%KSPDIR%" -p:KSP_DATA_DIR="%KSP_DATA_DIR%"
 if errorlevel 1 (
     echo ERROR: Failed to build the Mod DLL
     exit /b 1
 )
 
 echo Copying Mod dll files
-copy /y "Output\bin\ReRootMod.dll" "Release\ReRootMod"
+copy /y "Output\bin\KSPModReRoot.dll" "Release\KSPModReRoot"
 if errorlevel 1 (
     echo ERROR: Failed to copy the Mod DLL
     exit /b 1
 )
 
 echo Copying ModuleManager patch
-copy /y "GameData\ReRootMod\ReRootMod.cfg" "Release\ReRootMod"
+copy /y "GameData\KSPModReRoot\KSPModReRoot.cfg" "Release\KSPModReRoot"
 if errorlevel 1 (
     echo ERROR: Failed to copy the config file
     exit /b 1
 )
 
 echo Copying Localization
-mkdir "Release\ReRootMod\Localization"
-xcopy /y /i "GameData\ReRootMod\Localization\*.cfg" "Release\ReRootMod\Localization\"
+mkdir "Release\KSPModReRoot\Localization"
+xcopy /y /i "GameData\KSPModReRoot\Localization\*.cfg" "Release\KSPModReRoot\Localization\"
 if errorlevel 1 (
     echo ERROR: Failed to copy the localization files
     exit /b 1
 )
 
 echo Zipping Mod
-powershell -Command "Compress-Archive -Path 'Release\ReRootMod\*' -DestinationPath 'Release\ReRootMod.zip' -Force"
+powershell -Command "Compress-Archive -Path 'Release\KSPModReRoot\*' -DestinationPath 'Release\KSPModReRoot.zip' -Force"
 if errorlevel 1 (
     echo ERROR: Failed to zip the Mod
     exit /b 1
 )
 
 echo Removing Mod folder
-rmdir /s /q Release\ReRootMod
+rmdir /s /q Release\KSPModReRoot
 if errorlevel 1 (
     echo ERROR: Failed to remove the Mod folder
     exit /b 1
