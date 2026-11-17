@@ -4,6 +4,8 @@
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>KSPModReRoot</AssemblyName>
     <RootNamespace>com.github.lhervier.ksp.mod.reroot</RootNamespace>
+    <Version>1.0.1-dev</Version>
+    <Description>Adds a 'Set as root' action to re-root a vessel in flight, via the part context menu</Description>
     <OutputType>Library</OutputType>
     <OutputPath>Output\bin</OutputPath>
     <IntermediateOutputPath>Output\obj</IntermediateOutputPath>
@@ -12,8 +14,6 @@
     <DebugSymbols>true</DebugSymbols>
     <Optimize>false</Optimize>
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Deterministic>false</Deterministic>
   </PropertyGroup>
 
   <ItemGroup>
