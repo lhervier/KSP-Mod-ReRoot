@@ -92,7 +92,7 @@ These are the non-obvious things that each cost a debugging round:
 
 ---
 
-## Limitations / notes
+## Work in progress
 
 - Works on the **active vessel and any nearby loaded vessel** (right-click a part on it — within ~200 m of your active vessel). After the reload you're refocused on the vessel you were controlling, so the operation never steals control away from you.
 - For the action to appear on a *non-active* vessel, your **active vessel must be controllable** (KSP's rule for unfocused part actions) — any controllable vessel works (a Kerbal on EVA, a rover, a probe…).
